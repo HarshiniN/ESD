@@ -1,0 +1,28 @@
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+__Vectors
+	 DCD 0x10000000
+	 DCD Reset_Handler
+	 ALIGN
+	 AREA mycode,CODE,READONLY
+	 ENTRY
+	 EXPORT Reset_Handler
+Reset_Handler
+	LDR R0,=SRC+4*(N-1)
+	LDR R1,=SRC+(4*(2*N-1))-LAP;SRC+(4*(2*N- no. of bytes overlap))
+	LDR R3,[R0]
+	STR R3,[R1]
+	MOV R4,#10
+UP  
+    SUB R0,#4
+	SUB R1,#4
+	LDR R3,[R0]
+	STR R3,[R1]
+	TEQ R4,#0
+	BNE UP
+STOP B STOP
+N EQU 10
+LAP EQU 4
+	AREA DATASEG,DATA,READWRITE
+SRC DCD 0,0,0,0,0,0,0,0,0,0
+	END

@@ -1,1 +1,0 @@
-doityourself.o: doityourself.s
